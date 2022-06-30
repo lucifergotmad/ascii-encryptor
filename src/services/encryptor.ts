@@ -1,3 +1,5 @@
+import globalIgnore from '../constants/global-ignore';
+
 export default class Encryptor {
   encryptascii(str: any) {
     const key = process.env.ENCKEY;
@@ -64,7 +66,7 @@ export default class Encryptor {
     return str;
   }
 
-  doEncrypt(dataBeforeCopy: any, ignore: any = []) {
+  doEncrypt(dataBeforeCopy: any, ignore: any = globalIgnore) {
     if (!Number(process.env.ENCRYPTION_MODE)) {
       return dataBeforeCopy;
     }
@@ -105,7 +107,7 @@ export default class Encryptor {
     }
   }
 
-  doDecrypt(dataBeforeCopy: any, ignore: any = []) {
+  doDecrypt(dataBeforeCopy: any, ignore: any = globalIgnore) {
     if (!Number(process.env.ENCRYPTION_MODE)) {
       return dataBeforeCopy;
     }

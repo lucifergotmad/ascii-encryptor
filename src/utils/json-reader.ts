@@ -1,16 +1,18 @@
-import { readFile } from 'fs';
+import { readFileSync } from 'fs';
 
-export function readJSONFile(path: string, callback: CallableFunction) {
-  readFile(path, (err, data) => {
-    if (err) {
-      return callback && callback(err);
-    }
+export function readJSONFile(path: string): IJSONResult {
+  try {
+    const data = readFileSync(path, 'utf-8');
+    const parsedData = JSON.parse(data);
+    return { isError: false, data: parsedData };
+  } catch (error) {
+    console.log('Error: ', error);
+    return { isError: true, message: error.message };
+  }
+}
 
-    try {
-      const parsedData = JSON.parse(data.toString());
-      return callback && callback(null, parsedData);
-    } catch (error) {
-      return callback && callback(error);
-    }
-  });
+interface IJSONResult {
+  isError: boolean;
+  data?: any;
+  message?: string;
 }
