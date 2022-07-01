@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { IJSONResult } from './json-result';
 
 export function readJSONFile(path: string): IJSONResult {
   try {
@@ -6,13 +7,7 @@ export function readJSONFile(path: string): IJSONResult {
     const parsedData = JSON.parse(data);
     return { isError: false, data: parsedData };
   } catch (error) {
-    console.log('Error: ', error);
+    console.error('Error: ', error.message);
     return { isError: true, message: error.message };
   }
-}
-
-interface IJSONResult {
-  isError: boolean;
-  data?: any;
-  message?: string;
 }
