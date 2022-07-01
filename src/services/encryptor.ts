@@ -67,10 +67,6 @@ export default class Encryptor {
   }
 
   doEncrypt(dataBeforeCopy: any, ignore: any = globalIgnore) {
-    if (!Number(process.env.ENCRYPTION_MODE)) {
-      return dataBeforeCopy;
-    }
-
     if (!dataBeforeCopy) {
       return dataBeforeCopy;
     }
@@ -108,10 +104,6 @@ export default class Encryptor {
   }
 
   doDecrypt(dataBeforeCopy: any, ignore: any = globalIgnore) {
-    if (!Number(process.env.ENCRYPTION_MODE)) {
-      return dataBeforeCopy;
-    }
-
     if (!dataBeforeCopy) {
       return dataBeforeCopy;
     }
