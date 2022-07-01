@@ -1,7 +1,7 @@
 import globalIgnore from '../constants/global-ignore';
 
 export default class Encryptor {
-  encryptascii(str: any) {
+  private encryptascii(str: any) {
     const key = process.env.ENCKEY;
 
     const dataKey: any = {};
@@ -24,7 +24,7 @@ export default class Encryptor {
     return strEnc.toUpperCase();
   }
 
-  decryptascii(str: any) {
+  private decryptascii(str: any) {
     if (str) {
       const key = process.env.ENCKEY;
       const dataKey: any = {};
@@ -48,19 +48,19 @@ export default class Encryptor {
     }
   }
 
-  hexEncode(str: any) {
+  private hexEncode(str: any) {
     let result = '';
     result = str.toString(16);
     return result;
   }
 
-  hexdec(hex: any) {
+  private hexdec(hex: any) {
     let str: any = '';
     str = parseInt(hex, 16);
     return str;
   }
 
-  chr(asci: any) {
+  private chr(asci: any) {
     let str = '';
     str = String.fromCharCode(asci);
     return str;
@@ -150,22 +150,7 @@ export default class Encryptor {
     }
   }
 
-  doDecryptMiddleware() {
-    return [
-      (req: any, res: any, next: any) => {
-        const isEnc = Number(req.headers.enc || '0');
-        const ignoreFields = JSON.parse(req.headers.ignore || '[]');
-        if (isEnc) {
-          req.body = this.doDecrypt(req.body, ignoreFields);
-          next();
-        } else {
-          next();
-        }
-      },
-    ];
-  }
-
-  maskingNumber(number: any) {
+  private maskingNumber(number: any) {
     const numberString = String(number);
     const list = numberString.split('');
     return Number(
@@ -181,7 +166,7 @@ export default class Encryptor {
     );
   }
 
-  unmaskingNumber(number: any) {
+  private unmaskingNumber(number: any) {
     const numberString = String(number);
     const list = numberString.split('.');
     return Number(
